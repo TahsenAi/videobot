@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS videos (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  file_id TEXT NOT NULL,
+  active INTEGER NOT NULL DEFAULT 1,
+  created_at INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  video_id INTEGER NOT NULL,
+  kind TEXT NOT NULL CHECK(kind IN ('ad','channel')),
+  title TEXT NOT NULL,
+  url TEXT NOT NULL,
+  channel_username TEXT,
+  active INTEGER NOT NULL DEFAULT 1,
+  created_at INTEGER NOT NULL,
+  FOREIGN KEY(video_id) REFERENCES videos(id)
+);
+CREATE TABLE IF NOT EXISTS progress (
+  user_id TEXT NOT NULL,
+  video_id INTEGER NOT NULL,
+  task_id INTEGER NOT NULL,
+  completed_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id, video_id, task_id)
+);
+CREATE TABLE IF NOT EXISTS sessions (
+  token TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  video_id INTEGER NOT NULL,
+  task_id INTEGER NOT NULL,
+  started_at INTEGER NOT NULL,
+  used INTEGER NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
