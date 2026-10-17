@@ -1,0 +1,13 @@
+name = "tg-video-task-bot"
+main = "src/worker.js"
+compatibility_date = "2026-10-17"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "tg-video-task-db"
+database_id = "c28f4637-ede6-4cd2-a8e8-a7730afcc572"
